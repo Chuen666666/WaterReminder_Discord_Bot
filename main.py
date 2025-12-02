@@ -36,22 +36,23 @@ async def water_reminder():
         return
 
     if now.minute == 0:
-        try:
-            if config['isDM']:
-                user = await bot.fetch_user(config['ID'])
-                await user.send("💧 It's time to drink water!")
-            else:
-                channel = bot.get_channel(config['ID'])
-                if channel is None:
-                    channel = await bot.fetch_channel(config['ID'])
-                await channel.send("💧 It's time to drink water!")
+        for user_id in config.get('IDS', []):
+            try:
+                if config['isDM']:
+                    user = await bot.fetch_user(user_id)
+                    await user.send('💧 Time to drink water! Stay hydrated! 💧')
+                else:
+                    channel = bot.get_channel(user_id)
+                    if channel is None:
+                        channel = await bot.fetch_channel(user_id)
+                    await channel.send('💧 Time to drink water! Stay hydrated! 💧')
+                
+                print(f'[{now}] Sent water reminder to {user_id}')
 
-            print(f'[{now}] Reminder sent.')
-            await asyncio.sleep(60) # avoid multiple sends
+            except Exception as e:
+                print(f'Error sending to {user_id}: {e}')
 
-        except Exception as e:
-            print(f'Error sending reminder: {e}')
-
+        await asyncio.sleep(60) # avoid multiple sends
 
 if __name__ == '__main__':
     bot.run(TOKEN)

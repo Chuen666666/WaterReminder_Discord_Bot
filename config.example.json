@@ -1,4 +1,4 @@
 {
-    "isDM": A boolean indicating whether the bot is running in a DM (true) or a server (false).,
-    "ID": An integer representing the channel ID (if in a server) or the user ID (if in a DM).
+    "isDM": true, //boolean indicating whether the bot is running in a DM (true) or a server (false)
+    "IDS": [ID1, ID2, ...] //array of user IDs (for DM) or channel IDs (for server) to send reminders to
 }
