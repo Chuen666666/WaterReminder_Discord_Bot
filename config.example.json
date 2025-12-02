@@ -1,0 +1,4 @@
+{
+    "isDM": A boolean indicating whether the bot is running in a DM (true) or a server (false).,
+    "ID": An integer representing the channel ID (if in a server) or the user ID (if in a DM).
+}
