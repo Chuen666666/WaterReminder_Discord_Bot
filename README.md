@@ -28,7 +28,6 @@ If the bot runs on the Render environment, it will automatically stay online. Th
 1. Create a **Web Service**.
 2. Select the bot's GitHub repository (you can fork this repo first).
 3. Fill in the following settings:
-
    - **Runtime**: `Python3`
    - **Build Command**: `pip install -r requirements.txt`
    - **Start Command**: `python main.py`
@@ -38,5 +37,4 @@ If the bot runs on the Render environment, it will automatically stay online. Th
      - **Secret Files**: Set `Filename` to `config.json` and paste the contents of that JSON file into `File Contents`.
      - **Health Check Path**: `/` (default is `/healthz`)
 4. Finally, click **Deploy Web Service**.
-5. After deployment, go to **Settings &rarr; Health Checks &rarr; Health Check Path** and change it to `/` (the default should be `healthz`).
-6. Go to **UptimeRobot**: create an **HTTP / website monitoring** check and enter the bot's Render URL.
+5. Go to **UptimeRobot**: create an **HTTP / website monitoring** check and enter the bot's Render URL.
