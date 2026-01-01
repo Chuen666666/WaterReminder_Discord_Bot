@@ -7,17 +7,42 @@ import discord
 from discord.ext import commands, tasks
 from dotenv import load_dotenv
 import os
+from flask import Flask
+from threading import Thread
+
+# Keep bot alive on Render
+app = Flask(__name__)
+@app.route('/')
+def home():
+    return "I'm alive!"
+def run():
+    app.run(host='0.0.0.0', port=8080)
+def keep_alive():
+    t = Thread(target=run)
+    t.start()
+keep_alive()
 
 BASE_DIR = Path(__file__).resolve().parent
 
-load_dotenv(BASE_DIR / 'token.env')
+if os.path.exists('/etc/secrets/config.json'):
+    CONFIG_PATH = Path('/etc/secrets/config.json')
+elif (BASE_DIR / 'config.json').exists():
+    CONFIG_PATH = BASE_DIR / 'config.json'
+else:
+    CONFIG_PATH = Path('config.json')
+
+try:
+    with CONFIG_PATH.open('r', encoding='utf-8') as f:
+        config = json.load(f)
+    print(f"成功讀取設定檔：{CONFIG_PATH}")
+except Exception as e:
+    print(f"讀取設定檔失敗！路徑：{CONFIG_PATH}，錯誤：{e}")
+
 TOKEN = os.getenv('TOKEN')
 
 if not TOKEN:
-    raise ValueError('TOKEN is missing in token.env file.')
-
-with (BASE_DIR / 'config.json').open('r', encoding='utf-8') as f:
-    config = json.load(f)
+    load_dotenv(dotenv_path=BASE_DIR / 'token.env')
+    TOKEN = os.getenv('TOKEN')
 
 intents = discord.Intents.default()
 bot = commands.Bot(command_prefix='!', intents=intents)
