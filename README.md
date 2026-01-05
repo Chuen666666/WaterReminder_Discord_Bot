@@ -3,24 +3,28 @@
 ### Setup
 - Python (3.10+)
 - A Discord Bot (with a bot token)
+
 ### Python Venv and Packages
 1. Clone this repo and create venv.
 2. Install required packages.
+
 ``` bash
 pip install -r requirements.txt
 ```
 ### Change Files' Name
+
 |Old Name|New Name|Content|
 |:-:|:-:|:-:|
 |`config_example.py`|`config.py`|Paste your information|
 |`token_example.py`|`token.py`|Paste your bot token|
+
 > These 2 files are (and should remain) in `.gitignore`, so they won't be pushed to remote repo.
+
 ### Run Bot
 Run the bot in venv, using the following command (or run `main.py` in any other ways):
 
 ``` bash
 python main.py
-
 ```
 
 If the bot runs on the Render environment, it will automatically stay online. The setup for Render and UptimeRobot is as follows:
