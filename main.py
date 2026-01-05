@@ -21,7 +21,6 @@ def keep_alive():
     t = Thread(target=run)
     t.daemon = True
     t.start()
-keep_alive()
 
 BASE_DIR = Path(__file__).resolve().parent
 
@@ -81,4 +80,8 @@ async def water_reminder():
         await asyncio.sleep(60) # avoid multiple sends
 
 if __name__ == '__main__':
-    bot.run(TOKEN)
+    if TOKEN:
+        keep_alive()
+        bot.run(TOKEN)
+    else:
+        print('Error! TOKEN not found!')
