@@ -1,4 +1,3 @@
-import asyncio
 import json
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
@@ -59,10 +58,9 @@ async def water_reminder():
     now = datetime.now(tz_tw)
 
     # Only remind between 09:00 and 17:59 (you can adjust this as needed)
-    if not (9 <= now.hour <= 17):
-        return
+    if (now.minute == 0) and (9 <= now.hour <= 17):
+        print(f"[{now.strftime('%Y-%m-%d %H:%M:%S')}] Starting hourly water reminder...")
 
-    if now.minute == 0:
         for user_id in config.get('IDS', []):
             try:
                 if config['isDM']:
@@ -78,8 +76,6 @@ async def water_reminder():
 
             except Exception as e:
                 print(f'Error sending to {user_id}: {e}')
-
-        await asyncio.sleep(60) # avoid multiple sends
 
 if __name__ == '__main__':
     if TOKEN:
