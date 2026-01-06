@@ -1,6 +1,6 @@
 import asyncio
 import json
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
 import discord
@@ -54,7 +54,9 @@ async def on_ready():
 
 @tasks.loop(minutes=1)
 async def water_reminder():
-    now = datetime.now()
+    # Use GMT+8 timezone (you can adjust this as needed)
+    tz_tw = timezone(timedelta(hours=8))
+    now = datetime.now(tz_tw)
 
     # Only remind between 09:00 and 17:59 (you can adjust this as needed)
     if not (9 <= now.hour <= 17):
