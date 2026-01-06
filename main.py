@@ -33,9 +33,9 @@ else:
 try:
     with CONFIG_PATH.open('r', encoding='utf-8') as f:
         config = json.load(f)
-    print(f"成功讀取設定檔：{CONFIG_PATH}")
+    print(f'成功讀取設定檔：{CONFIG_PATH}')
 except Exception as e:
-    print(f"讀取設定檔失敗！路徑：{CONFIG_PATH}，錯誤：{e}")
+    print(f'讀取設定檔失敗！路徑：{CONFIG_PATH}，錯誤：{e}')
 
 TOKEN = os.getenv('TOKEN')
 
@@ -59,7 +59,7 @@ async def water_reminder():
 
     # Only remind between 09:00 and 17:59 (you can adjust this as needed)
     if (now.minute == 0) and (9 <= now.hour <= 17):
-        print(f"[{now.strftime('%Y-%m-%d %H:%M:%S')}] Starting hourly water reminder...")
+        print(f'[{now.strftime('%Y-%m-%d %H:%M:%S')}] Starting hourly water reminder...')
 
         for user_id in config.get('IDS', []):
             try:
