@@ -57,9 +57,9 @@ async def water_reminder():
     tz_tw = timezone(timedelta(hours=8))
     now = datetime.now(tz_tw)
 
-    # Only remind between 09:00 and 17:59 (you can adjust this as needed)
-    if (now.minute == 0) and (9 <= now.hour <= 17):
-        print(f'[{now.strftime('%Y-%m-%d %H:%M:%S')}] Starting hourly water reminder...')
+    # Only remind between 09:00~16:59 and Mon.~Fri. (you can adjust this as needed)
+    if (now.minute == 0) and (9 <= now.hour < 17) and (now.weekday() < 5):
+        print(f'[{now.strftime("%Y-%m-%d %H:%M:%S")}] Starting hourly water reminder...')
 
         for user_id in config.get('IDS', []):
             try:
