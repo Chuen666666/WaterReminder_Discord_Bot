@@ -11,12 +11,14 @@
 ``` bash
 pip install -r requirements.txt
 ```
-### Change Files' Name
+### Create Your Own File from the Example
 
-|Old Name|New Name|Content|
-|:-:|:-:|:-:|
-|`config_example.py`|`config.py`|Paste your information|
-|`token_example.py`|`token.py`|Paste your bot token|
+```bash
+cp config.example.json config.json
+cp token.example.env token.env
+```
+
+> Please use `copy` instead of `cp` if your computer is Windows.
 
 > These 2 files are (and should remain) in `.gitignore`, so they won't be pushed to remote repo.
 
@@ -42,3 +44,4 @@ If the bot runs on the Render environment, it will automatically stay online. Th
      - **Health Check Path**: `/` (default is `/healthz`)
 4. Finally, click **Deploy Web Service**.
 5. Go to **UptimeRobot**: create an **HTTP / website monitoring** check and enter the bot's Render URL.
+
