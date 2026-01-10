@@ -22,6 +22,8 @@ cp token.example.env token.env
 
 > These 2 files are (and should remain) in `.gitignore`, so they won't be pushed to remote repo.
 
+> After copying, open both files and fill in the required information.
+
 ### Run Bot
 Run the bot in venv, using the following command (or run `main.py` in any other ways):
 
@@ -44,4 +46,5 @@ If the bot runs on the Render environment, it will automatically stay online. Th
      - **Health Check Path**: `/` (default is `/healthz`)
 4. Finally, click **Deploy Web Service**.
 5. Go to **UptimeRobot**: create an **HTTP / website monitoring** check and enter the bot's Render URL.
+
 
