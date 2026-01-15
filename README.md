@@ -3,6 +3,7 @@
 ### Setup
 - Python (3.10+)
 - A Discord Bot (with a bot token)
+- [Optional] Ruff
 
 ### Python Venv and Packages
 1. Clone this repo and create venv.
