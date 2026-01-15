@@ -1,25 +1,33 @@
 import json
-from datetime import datetime, timezone, timedelta
+import os
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from threading import Thread
 
 import discord
 from discord.ext import commands, tasks
 from dotenv import load_dotenv
-import os
 from flask import Flask
-from threading import Thread
+
 
 # Keep bot alive on Render
 app = Flask(__name__)
+
+
 @app.route('/')
 def home():
     return "I'm alive!"
+
+
 def run():
     app.run(host='0.0.0.0', port=8080)
+
+
 def keep_alive():
     t = Thread(target=run)
     t.daemon = True
     t.start()
+
 
 BASE_DIR = Path(__file__).resolve().parent
 
@@ -46,10 +54,12 @@ if not TOKEN:
 intents = discord.Intents.default()
 bot = commands.Bot(command_prefix='!', intents=intents)
 
+
 @bot.event
 async def on_ready():
     print(f'Logged in as {bot.user}')
     water_reminder.start()
+
 
 @tasks.loop(minutes=1)
 async def water_reminder():
@@ -59,7 +69,9 @@ async def water_reminder():
 
     # Only remind between 09:00~16:59 and Mon.~Fri. (you can adjust this as needed)
     if (now.minute == 0) and (9 <= now.hour < 17) and (now.weekday() < 5):
-        print(f'[{now.strftime("%Y-%m-%d %H:%M:%S")}] Starting hourly water reminder...')
+        print(
+            f'[{now.strftime("%Y-%m-%d %H:%M:%S")}] Starting hourly water reminder...'
+        )
 
         for user_id in config.get('IDS', []):
             try:
@@ -70,12 +82,17 @@ async def water_reminder():
                     channel = bot.get_channel(user_id)
                     if channel is None:
                         channel = await bot.fetch_channel(user_id)
-                    await channel.send('💧 Time to drink water! Stay hydrated! 💧')
-                
+
+                    if isinstance(channel, discord.abc.Messageable):
+                        await channel.send('💧 Time to drink water! Stay hydrated! 💧')
+                    else:
+                        print(f'Error: ID {user_id} is not a messageable channel')
+
                 print(f'[{now}] Sent water reminder to {user_id}')
 
             except Exception as e:
                 print(f'Error sending to {user_id}: {e}')
+
 
 if __name__ == '__main__':
     if TOKEN:
