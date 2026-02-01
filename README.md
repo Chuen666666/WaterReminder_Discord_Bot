@@ -1,17 +1,22 @@
 ﻿# WaterReminder_Discord_Bot
+
 ## Environment
+
 ### Setup
+
 - Python (3.10+)
 - A Discord Bot (with a bot token)
 - [Optional] Ruff
 
 ### Python Venv and Packages
+
 1. Clone this repo and create venv.
 2. Install required packages.
 
 ``` bash
 pip install -r requirements.txt
 ```
+
 ### Create Your Own File from the Example
 
 ```bash
@@ -26,6 +31,7 @@ cp token.example.env token.env
 > After copying, open both files and fill in the required information.
 
 ### Run Bot
+
 Run the bot in venv, using the following command (or run `main.py` in any other ways):
 
 ``` bash
@@ -47,5 +53,3 @@ If the bot runs on the Render environment, it will automatically stay online. Th
      - **Health Check Path**: `/` (default is `/healthz`)
 4. Finally, click **Deploy Web Service**.
 5. Go to **UptimeRobot**: create an **HTTP / website monitoring** check and enter the bot's Render URL.
-
-
